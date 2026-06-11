@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대만 남부 소도시 여름 청춘 여행 기획서</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Reset & Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Presentation Container */
+        .deck-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Action Bar (Print / PDF) */
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            background: #fff;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .action-bar p {
+            font-size: 0.95rem;
+            color: #666;
+        }
+        .btn-print {
+            background: #00b4d8;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-print:hover {
+            background: #0077b6;
+        }
+
+        /* Slide Styling */
+        .slide {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            padding: 50px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #eef2f5;
+            min-height: 620px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Slide Header */
+        .slide-header {
+            border-bottom: 2px solid #f0f4f8;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .slide-header h2 {
+            font-size: 1.75rem;
+            color: #0077b6;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .slide-header .slide-tag {
+            background: #e0f7fa;
+            color: #0097a7;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Slide Content Components */
+        .slide-body {
+            flex-grow: 1;
+        }
+        
+        /* Title Slide Layout */
+        .slide-title-content {
+            text-align: center;
+            margin: auto 0;
+            padding: 40px 0;
+        }
+        .slide-title-content .badge {
+            background: linear-gradient(135deg, #00b4d8, #0077b6);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .slide-title-content h1 {
+            font-size: 3.2rem;
+            color: #1d3557;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            font-weight: 700;
+            word-break: keep-all;
+        }
+        .slide-title-content p {
+            font-size: 1.3rem;
+            color: #4a5568;
+            font-weight: 300;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Info Cards & Boxes */
+        .info-card {
+            background: #f8f9fa;
+            border-left: 4px solid #00b4d8;
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 15px;
+        }
+        .info-card h4 {
+            color: #1d3557;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .info-list {
+            list-style: none;
+        }
+        .info-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        .info-list li::before {
+            content: "•";
+            color: #00b4d8;
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+
+        /* Timeline / Routing Table */
+        .route-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .route-table th {
+            background-color: #0077b6;
+            color: white;
+            text-align: left;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        .route-table th:first-child { border-radius: 8px 0 0 0; }
+        .route-table th:last-child { border-radius: 0 8px 0 0; }
+        .route-table td {
+            padding: 16px;
+            border-bottom: 1px solid #eef2f5;
+            font-size: 0.95rem;
+            vertical-align: top;
+        }
+        .route-table tr:last-child td {
+            border-bottom: none;
+        }
+        .route-table .day-badge {
+            background: #1d3557;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        /* Content Point Box */
+        .content-box {
+            background: #fff8f0;
+            border: 1px dashed #f4a261;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+        .content-box h4 {
+            color: #e76f51;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Channel Links Grid */
+        .channel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .channel-card {
+            background: #fff;
+            border: 1px solid #e1e8ed;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.2s ease;
+        }
+        .channel-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        .channel-card i {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .channel-card.insta i { color: #e1306c; }
+        .channel-card.blog i { color: #03cf5d; }
+        .channel-card.youtube i { color: #ff0000; }
+        .channel-card.tiktok i { color: #000000; }
+        .channel-card.clip i { color: #1ec800; }
+        .channel-card span {
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: block;
+        }
+
+        /* Summary Footer Highlight */
+        .summary-quote {
+            background: linear-gradient(135deg, #f8f9fa, #e0f7fa);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 25px;
+            border: 1px solid #b2ebf2;
+        }
+        .summary-quote p {
+            font-size: 1.15rem;
+            color: #006064;
+            font-weight: 500;
+            word-break: keep-all;
+        }
+
+        /* Slide Footer */
+        .slide-footer {
+            border-top: 1px solid #f0f4f8;
+            padding-top: 15px;
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+
+        /* Print / PDF Layout Optimization */
+        @media print {
+            body {
+                background-color: #fff;
+            }
+            .action-bar {
+                display: none;
+            }
+            .deck-container {
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            .slide {
+                box-shadow: none;
+                border: none;
+                margin-bottom: 0;
+                page-break-after: always;
+                min-height: 100vh;
+                padding: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="deck-container">
+        
+        <!-- Action Bar for PDF Download -->
+        <div class="action-bar">
+            <div>
+                <p><strong>💡 PDF 저장 팁:</strong> 아래 버튼을 누르거나 키보드의 <kbd>Ctrl + P</kbd>(Mac은 <kbd>Cmd + P</kbd>)를 누른 후, 인쇄 대상을 <strong>'PDF로 저장'</strong>으로 선택하시면 깔끔한 제안서 파일로 소장하실 수 있습니다.</p>
+            </div>
+            <button class="btn-print" onclick="window.print()">
+                <i class="fa-solid fa-file-pdf"></i> PDF / 슬라이드 다운로드
+            </button>
+        </div>
+
+        <!-- SLIDE 1: TITLE -->
+        <div class="slide">
+            <div class="slide-body slide-title-content">
+                <span class="badge">MARKETING & TRAVEL PLAN</span>
+                <h1>대만 남부 소도시<br><span style="color:#00b4d8;">여름 청춘 피서</span> 여행 기획서</h1>
+                <p>안평 옛거리부터 소류구 거북이 스노클링까지, 3박 4일 대중교통 뚜벅이 정복기</p>
+            </div>
+            <div class="slide-footer">
+                <span>TAIWAN TRIP IN SUMMER</span>
+                <span>01</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: TRIP BASIC INFO -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-plane-departure"></i> 1. 여행 기본 정보</h2>
+                <span class="slide-tag">Overview</span>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2">
+                    <div>
+                        <div class="info-card">
+                            <h4><i class="fa-solid fa-calendar-days"></i> 일정 및 항공 스케줄</h4>
+                            <ul class="info-list">
+                                <li><strong>기간:</strong> 3박 4일 일정 (여름 시즌 피서)</li>
+                                <li><strong>출국:</strong> 8/14 김포 20:45 출발 ➡️ 타이완에어 IT663</li>
+                                <li><strong>귀국:</strong> 8/18 가오슝 16:10 출발 ➡️ 티웨이에어 TW672</li>
+                            </ul>
+                        </div>
+                        <div class="info-card">
+                            <h4><i class="fa-solid fa-user-group"></i> 동행 및 컨셉</h4>
+                            <ul class="info-list">
+                                <li>친구와 함께 떠나는 싱그러운 우정 여행</li>
+                                <li>버스, 자전거, 기차 등을 이용한 대중교통 뚜벅이 여행</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info-card" style="border-left-color: #f4a261; height: 100%;">
+                            <h4><i class="fa-solid fa-camera"></i> 선호하는 분위기 & 비주얼 방향</h4>
+                            <ul class="info-list" style="margin-top: 10px;">
+                                <li><strong>로컬 감성:</strong> 인파가 적고 현지인 분위기가 물씬 풍기는 고즈넉한 골목</li>
+                                <li><strong>청춘·우정 키워드:</strong> 인스타그램, 블로그 등 SNS에 최적화된 청량한 색감의 스폿 중심 선정</li>
+                                <li><strong>시즌 테마:</strong> 한여름 무더위를 시원하게 날려줄 여름 피서 및 이색 체험 요소 결합</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>TAIWAN TRIP IN SUMMER</span>
+                <span>02</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: ROUTE SUMMARY -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-route"></i> 2. 3박 4일 대중교통 최적 동선 요약</h2>
+                <span class="slide-tag">Route Schedule</span>
+            </div>
+            <div class="slide-body">
+                <table class="route-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%;">일자 (날짜)</th>
+                            <th style="width: 35%;">주요 이동 경로 및 테마</th>
+                            <th style="width: 50%;">비고 및 팁</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="day-badge">1일차</span> 8/14</td>
+                            <td><strong>가오슝 공항 입국 ➡️ 숙소 체크인</strong></td>
+                            <td>심야 도착(22:10)이므로 미려도역 인근 숙소로 신속 이동 및 휴식</td>
+                        </tr>
+                        <tr>
+                            <td><span class="day-badge">2일차</span> 8/15</td>
+                            <td><strong>가오슝 ➡️ 타이난 안평 옛거리 ➡️ 관쯔링 온천</strong></td>
+                            <td>세월을 걷는 아날로그 청춘 아카이브 (테마 06 배경)</td>
+                        </tr>
+                        <tr>
+                            <td><span class="day-badge">3일차</span> 8/16</td>
+                            <td><strong>가오슝 ➡️ 동강 터미널 ➡️ 소류구 섬 ➡️ 가오슝</strong></td>
+                            <td>청량한 여름 바다, 야생 바다거북과의 조우 (테마 05 배경)</td>
+                        </tr>
+                        <tr>
+                            <td><span class="day-badge">4일차</span> 8/17</td>
+                            <td><strong>보얼 예술 특구 ➡️ 치진섬 ➡️ 가오슝 공항 출국</strong></td>
+                            <td>출국 전 반나절을 활용한 항구 도시 예술&해변 투어</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="slide-footer">
+                <span>TAIWAN TRIP IN SUMMER</span>
+                <span>03</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: DAY 1 & DAY 2 DETAILS -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-hourglass-start"></i> 3. 일자별 상세 코스 [1~2일차]</h2>
+                <span class="slide-tag">Day 1 & Day 2</span>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2">
+                    <div>
+                        <div class="info-card" style="border-left-color: #1d3557;">
+                            <h4>🗓️ 1일차: 가오슝 입국 및 전야제</h4>
+                            <p style="font-size:0.9rem; margin-bottom: 5px;"><strong>동선:</strong> 가오슝 국제공항 ➡️ 시내 숙소</p>
+                            <p style="font-size:0.9rem; margin-bottom: 8px;"><strong>이동:</strong> 공항철도(MRT)로 약 15~20분 소요</p>
+                            <p style="font-size:0.85rem; color:#666; background:#fff; padding:8px; border-radius:6px;">
+                                💡 <strong>미려도역(Formosa Boulevard) 팁:</strong> 세계적인 지하철역 예술인 '빛의 돔' 아래서 가벼운 도착 인증숏으로 여행 피드를 시작하기 좋습니다.
+                            </p>
+                        </div>
+                        
+                        <div class="info-card" style="border-left-color: #00b4d8;">
+                            <h4>🗓️ 2일차 스폿 ① : 안평 옛거리 & 트리하우스</h4>
+                            <p style="font-size:0.9rem; margin-bottom: 5px;"><strong>이동 방법 & 소요시간:</strong><br>가오슝역 ➡️ 기차(TRA)로 타이난역(30분) ➡️ 2번/19번 버스로 안평 하차(30분)</p>
+                            <p style="font-size:0.9rem;"><strong>연계 스폿:</strong> 안평 트리하우스 (도보 5분)</p>
+                            <p style="font-size:0.85rem; color:#555; margin-top:5px;">• 거대한 가쥬마루 나무가 건물을 삼킨 이국적이고 시원한 천연 그늘 피서지.</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="info-card" style="border-left-color: #00b4d8;">
+                            <h4>🗓️ 2일차 스폿 ② : 관쯔링 온천</h4>
+                            <p style="font-size:0.9rem; margin-bottom: 5px;"><strong>이동 방법 & 소요시간:</strong><br>타이난역 ➡️ 기차(TRA)로 신잉역 이동 ➡️ 신잉 여객 버스(黃7번) 환승 후 관쯔링 하차 (총 1시간 30분)</p>
+                            <p style="font-size:0.9rem;"><strong>연계 스폿:</strong> 수화통원 (버스로 15분)</p>
+                            <p style="font-size:0.85rem; color:#555; margin-top:5px;">• 물과 불이 동시에 타오르는 자연 현상으로 블로그 이색 콘텐츠 소재로 최적.</p>
+                        </div>
+
+                        <div class="content-box">
+                            <h4><i class="fa-solid fa-clapperboard"></i> 2일차 콘텐츠 제작 포인트</h4>
+                            <ul class="info-list" style="font-size: 0.85rem;">
+                                <li><strong>숏폼 비주얼:</strong> 안평 옛거리 붉은 벽돌 골목에서 친구와 시밀러룩을 입고 걸어가는 뒷모습 촬영. 필름 필터로 아날로그 감성 연출.</li>
+                                <li><strong>블로그 꿀팁:</strong> 가오슝-타이난 당일치기 기차 연계 꿀팁, 세계 3대 진흙 온천인 관쯔링 온천의 여름 효능 및 뚜벅이 전용 버스 시간표 공유.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>TAIWAN TRIP IN SUMMER</span>
+                <span>04</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: DAY 3 DETAILS -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-umbrella-beach"></i> 3. 일자별 상세 코스 [3일차]</h2>
+                <span class="slide-tag">Day 3</span>
+            </div>
+            <div class="slide-body">
+                <div class="info-card" style="border-left-color: #457b9d;">
+                    <h4>🗓️ 3일차: 핑둥 소류구 - "여름 바다, 거북이와 함께 피서"</h4>
+                    <p style="font-size:0.95rem; margin-bottom: 10px;">
+                        <strong>이동 방법 및 소요시간:</strong> 가오슝 쭤잉역 역전 버스정류장에서 9127D 버스 탑승 ➡️ 동강 페리 터미널 하차 (약 1시간 20분) ➡️ 페리 환승 후 소류구 섬 입항 (약 20분)
+                    </p>
+                    <p style="font-size:0.95rem;">
+                        <strong>함께 가볼 만한 연계 스폿:</strong> 화병암(Vase Rock) & 전기 자전거 섬 한 바퀴 투어 (선착장 대여 후 5분 이동)
+                    </p>
+                </div>
+
+                <div class="grid-2" style="margin-top: 20px;">
+                    <div class="content-box" style="margin-top:0;">
+                        <h4><i class="fa-brands fa-instagram"></i> 숏폼 (릴스/클립/틱톡) 앵글</h4>
+                        <ul class="info-list" style="font-size: 0.9rem;">
+                            <li><strong>청춘 로드무비:</strong> 면허 없이 탈 수 있는 전기 자전거를 타고 청량한 해안도로를 달릴 때, 옆에서 바람을 맞는 친구의 모습을 슬로우 모션 촬영 (시티팝 오디오 매칭).</li>
+                            <li><strong>언더워터 뷰:</strong> 투명한 소류구 바닷속에서 야생 바다거북과 나란히 헤엄치는 순간을 고프로/방수팩으로 생생하게 포착하여 피서 대리만족 선사.</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-box" style="margin-top:0; border-color: #4a4e69; background-color: #f7f4f9;">
+                        <h4 style="color: #4a4e69;"><i class="fa-solid fa-pen-to-square"></i> 블로그 정보성 꿀팁 포스팅</h4>
+                        <ul class="info-list" style="font-size: 0.9rem;">
+                            <li>가오슝 시내에서 동강 페리 터미널까지 대중교통(이지카드 사용)으로 한 번에 찾아가는 법 가이드.</li>
+                            <li>현장 페리 티켓 예매 방법 및 시간표 정보 공유.</li>
+                            <li>국내 면허증으로 안전하게 빌리는 전기 자전거 대여 매장 추천 및 거북이 보호를 위한 현지 환경 매너 수칙 정리.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>TAIWAN TRIP IN SUMMER</span>
+                <span>05</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: DAY 4 DETAILS -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-flag"></i> 3. 일자별 상세 코스 [4일차]</h2>
+                <span class="slide-tag">Day 4</span>
+            </div>
+            <div class="slide-body">
+                <div class="info-card" style="border-left-color: #e76f51;">
+                    <h4>🗓️ 4일차: 가오슝 - "항구 도시의 예술과 청춘의 마지막 장"</h4>
+                    <p style="font-size: 0.9rem; margin-bottom: 5px;"><strong>항공편 요약:</strong> 가오슝 16:10 출발 (TW672) ➡️ 공항에 14:00까지 안전 도착을 위한 알찬 오전 반나절 속성 코스</p>
+                </div>
+
+                <table class="route-table" style="margin-top:15px;">
+                    <thead>
+                        <tr>
+                            <th style="width: 40%;">추천 스폿 및 대중교통 동선</th>
+                            <th style="width: 60%;">함께 가볼 만한 연계 스폿 및 팁</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>보얼 예술 특구 (Pier-2)</strong><br>
+                                <span style="font-size:0.85rem; color:#666;">가오슝 시내에서 MRT 옌청푸역 하차 후 도보 5분</span>
+                            </td>
+                            <td>
+                                버섯 모양의 귀여운 캐릭터 동상 및 대형 벽화 앞 트윈 숏폼 챌린지 구도 연출.<br>
+                                <span style="font-size:0.85rem; color:#e76f51;">💡 캐리어 보관 가능한 보얼 특구 물품보관함 위치 정보 포스팅용 사진 확보 필수.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>치진섬 (Cijin Island)</strong><br>
+                                <span style="font-size:0.85rem; color:#666;">보얼 특구 근처 구산 페리 터미널에서 페리 탑승 (약 5분)</span>
+                            </td>
+                            <td>
+                                페리에 자전거를 싣고 넘어가 치진 무지개 교회, 검은 모래 해변 투어.<br>
+                                파도가 칠 때 해변에서 함께 뛰어노는 우정 무드의 역동적인 영상 클립 확보.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="slide-footer">
+                <span>TAIWAN TRIP IN SUMMER</span>
+                <span>06</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: MARKETING STRATEGY & CREATOR VALUE (요청 반영) -->
+        <div class="slide">
+            <div class="slide-header">
+                <h2><i class="fa-solid fa-bullseye"></i> 4. 크리에이터 전략 및 강점 (1소스 멀티유즈)</h2>
+                <span class="slide-tag">Marketing Strategy</span>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2">
+                    <div>
+                        <div class="info-card" style="border-left-color: #2a9d8f;">
+                            <h4><i class="fa-solid fa-layer-group"></i> 1소스 멀티유즈 파이프라인</h4>
+                            <p style="font-size:0.9rem; color:#444; margin-bottom: 10px;">
+                                하나의 핵심 여행 경험(소스)을 채널별 특성에 맞춰 최적의 형태로 재가공해 노출 효과를 극대화합니다.
+                            </p>
+                            <ul class="info-list" style="font-size:0.85rem;">
+                                <li><strong>숏폼 채널 (인스타/클립/틱톡):</strong> 3~5초 내 시선을 사로잡는 청량한 여름 감성 앵글, 친구와의 시밀러룩 트윈샷, 자전거 하이라이트 등 '비주얼 중심 후기'.</li>
+                                <li><strong>롱폼/글 채널 (유튜브/블로그):</strong> 대중교통 이동 동선 세부 가이드, 뚜벅이용 버스 시간표 꿀팁, 소도시 리얼 브이로그 등 '고밀도 정보성 콘텐츠'.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info-card" style="border-left-color: #e9c46a;">
+                            <h4><i class="fa-solid fa-star"></i> 크리에이터 소구점 (강점)</h4>
+                            <p style="font-size:0.9rem; color:#444;">
+                                '남들이 다 가는 타이베이가 지겨운 이들'을 위한 완벽한 대안 제시. <strong>'청춘', '여름 피서', '대중교통 뚜벅이 소도시'</strong>라는 뚜렷한 키워드로 타겟층의 도전 욕구와 감성을 자극합니다.
+                            </p>
+                        </div>
+                        <div class="info-card" style="border-left-color: #1d3557; padding: 12px 20px;">
+                            <p style="font-size:0.85rem; color:#333;"><strong>콘텐츠 핵심 메시지:</strong><br>"진흙 온천이 있는 유서 깊은 '타이난'과 바다거북이 함께 헤엄치는 청량한 '소류구'를 대중교통으로 정복하는 여름 청춘 소도시 완벽 가이드!"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Channel Hyperlinks -->
+                <div class="channel-grid">
+                    <a href="https://www.instagram.com/mozzi_orzl_" target="_blank" class="channel-card insta">
+                        <i class="fa-brands fa-instagram"></i>
+                        <span>인스타그램</span>
+                    </a>
+                    <a href="https://blog.naver.com/km12230" target="_blank" class="channel-card blog">
+                        <i class="fa-solid fa-blog"></i>
+                        <span>네이버 블로그</span>
+                    </a>
+                    <a href="https://www.youtube.com/@go_orzl_" target="_blank" class="channel-card youtube">
+                        <i class="fa-brands fa-youtube"></i>
+                        <span>유튜브</span>
+                    </a>
+                    <a href="https://lite.tiktok.com/t/ZS9jRcqGAyYgx-SgkzB/" target="_blank" class="channel-card tiktok">
+                        <i class="fa-brands fa-tiktok"></i>
+                        <span>틱톡</span>
+                    </a>
+                    <a href="https://clip.naver.com/@mozzi_orzl_" target="_blank" class="channel-card clip">
+                        <i class="fa-solid fa-paperclip"></i>
+                        <span>네이버 클립</span>
+                    </a>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>TAIWAN TRIP IN SUMMER</span>
+                <span>07</span>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
