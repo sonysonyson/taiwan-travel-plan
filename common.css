@@ -1,0 +1,440 @@
+@charset "UTF-8";
+
+/* 1. 가오슝플랜 기준 마스터 디자인 시스템 정의 */
+:root {
+    --primary: #0EA5E9;       /* 스카이 블루 (여름 바다) */
+    --primary-dark: #0369A1;  /* 딥 블루 */
+    --accent: #F43F5E;        /* 로즈 코랄 (청춘, 트렌디) */
+    --accent-gold: #F59E0B;   /* 앰버 골드 */
+    --bg-base: #CBD5E1;       /* 슬레이트 배경 그레이 */
+    --slide-bg: #F8FAFC;      /* 부드러운 화이트 고스트 */
+    --card-bg: #FFFFFF;
+    --text-main: #0F172A;     /* 네이비 블랙 */
+    --text-sub: #475569;      /* 슬레이트 그레이 */
+    --border-color: #E2E8F0;
+}
+
+/* 2. 전역 스타일 초기화 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: var(--bg-base);
+    font-family: 'Pretendard', sans-serif;
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    padding: 40px 20px;
+}
+
+/* 3. 컨트롤 바 및 상단 헤더 규격 */
+.action-bar {
+    width: 100%;
+    max-width: 1280px;
+    background: var(--card-bg);
+    padding: 20px 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+.action-info p {
+    font-size: 15px;
+    color: var(--text-sub);
+    line-height: 1.4;
+}
+.btn-download {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+.btn-download:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
+}
+
+/* 4. 슬라이드 및 허브 컨테이너 표준화 */
+.hub-container, .slide-container {
+    width: 100%;
+    max-width: 1280px;
+    background-color: var(--slide-bg);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 50px 60px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+}
+.hub-container {
+    text-align: center;
+    padding: 60px 50px;
+}
+.slide-container {
+    min-height: 720px;
+}
+.hub-container::before, .slide-container::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.06) 0%, transparent 70%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* 5. 레이아웃 컴포넌트 세트 */
+.slide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 20px;
+    z-index: 1;
+    gap: 15px;
+}
+.slide-header h2 {
+    font-size: clamp(24px, 4vw, 38px);
+    font-weight: 700;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.slide-header h2 span { color: var(--primary); }
+.taichung-header h2 span { color: var(--primary-dark); }
+
+.slide-tag, .hub-badge {
+    background: #E0F2FE;
+    color: var(--primary-dark);
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+.hub-badge {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    padding: 8px 20px;
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    letter-spacing: 2px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.slide-content {
+    flex-grow: 1;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+/* 6. 인포 카드 & 블록 디테일 */
+.info-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-top: 5px solid var(--primary);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    margin-bottom: 15px;
+    text-align: left;
+}
+.taichung-card .info-card { border-top-color: var(--primary-dark); }
+.info-card h4 {
+    font-size: 18px;
+    color: var(--text-main);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.info-card h4 i { color: var(--primary); }
+.taichung-card .info-card h4 i { color: var(--primary-dark); }
+
+.info-list { list-style: none; }
+.info-list li {
+    font-size: 15px;
+    color: var(--text-sub);
+    margin-bottom: 8px;
+    line-height: 1.5;
+    position: relative;
+    padding-left: 16px;
+}
+.info-list li::before {
+    content: "•";
+    color: var(--primary);
+    font-weight: bold;
+    font-size: 18px;
+    position: absolute;
+    left: 0;
+    top: -2px;
+}
+
+.detail-block {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px;
+    text-align: left;
+}
+.spot-header h3 {
+    font-size: 22px;
+    color: var(--primary-dark);
+    margin-bottom: 4px;
+}
+.spot-route-meta {
+    font-size: 14px;
+    color: var(--accent);
+    font-weight: 500;
+    line-height: 1.4;
+}
+.spot-desc {
+    font-size: 15px;
+    color: var(--text-sub);
+    line-height: 1.6;
+}
+.strategy-box {
+    background: #FFFBEB;
+    border: 1px dashed #F59E0B;
+    border-radius: 10px;
+    padding: 16px;
+}
+.strategy-box h5 {
+    font-size: 15px;
+    color: #D97706;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.strategy-box p { font-size: 13.5px; line-height: 1.5; color: var(--text-sub); }
+
+.pitch-card { 
+    background-color: #FFFBEB; 
+    border: 1px solid #FEF3C7; 
+    border-left: 5px solid #D97706; 
+    border-radius: 8px; 
+    padding: 18px; 
+    margin-bottom: 15px; 
+    text-align: left;
+}
+.pitch-card strong { font-size: 16px; color: var(--text-main); display: block; margin-bottom: 6px; }
+.pitch-card p { font-size: 14.5px; color: var(--text-sub); line-height: 1.5; }
+
+/* 7. 테이블 및 채널 요소 */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card-bg);
+    min-width: 750px;
+    text-align: left;
+}
+.schedule-table th {
+    background: var(--primary-dark);
+    color: white;
+    padding: 14px 16px;
+    font-size: 16px;
+    font-weight: 500;
+}
+.schedule-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 15px;
+    vertical-align: middle;
+}
+.schedule-table tr:last-child td { border-bottom: none; }
+.day-label {
+    background: var(--text-main);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 13px;
+    display: inline-block;
+}
+
+.channels-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    width: 100%;
+}
+.channel-tile {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 20px 10px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-main);
+    transition: all 0.2s ease;
+}
+.channel-tile:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+.channel-tile i { font-size: 32px; margin-bottom: 12px; display: block; }
+.channel-tile.instagram i { color: #E1306C; }
+.channel-tile.blog i { color: #03C75A; }
+.channel-tile.youtube i { color: #FF0000; }
+.channel-tile.tiktok i { color: #000000; }
+.channel-tile.clip i { color: #1EC800; }
+.channel-tile span { font-weight: 700; font-size: 15px; display: block; margin-bottom: 4px; }
+.channel-tile p { font-size: 12px; color: var(--text-sub); }
+
+/* 8. 메인 허브 전용 카드 그리드 규격 */
+.plan-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+.plan-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-top: 5px solid var(--primary);
+    border-radius: 16px;
+    padding: 45px 35px;
+    text-decoration: none;
+    color: var(--text-main);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+.plan-card.taichung { border-top-color: var(--primary-dark); }
+.plan-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+.card-meta { font-size: 14px; font-weight: 700; letter-spacing: 1px; margin-bottom: 15px; font-family: 'Montserrat', sans-serif; color: var(--accent); }
+.plan-card h2 { font-size: 26px; color: var(--primary-dark); margin-bottom: 15px; font-weight: 700; }
+.plan-card p { font-size: 15px; color: var(--text-sub); line-height: 1.6; margin-bottom: 25px; }
+.card-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
+.card-tags span { font-size: 13px; font-weight: 500; padding: 4px 12px; border-radius: 6px; background: #E0F2FE; color: var(--primary-dark); }
+.card-btn { font-size: 16px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 8px; transition: gap 0.2s ease; }
+            .plan-card:hover .card-btn { gap: 14px; color: var(--primary); }
+
+/* 9. 커버 / 엔딩 테마 */
+.cover-layout, .thanks-box {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.cover-layout h1 { font-size: clamp(32px, 5vw, 64px); font-weight: 700; line-height: 1.3; margin-bottom: 20px; word-break: keep-all; }
+.cover-layout p { font-size: clamp(16px, 2vw, 22px); color: var(--text-sub); word-break: keep-all; }
+.thanks-box h2 { font-size: clamp(44px, 6vw, 72px); font-family: 'Montserrat', sans-serif; color: var(--text-main); margin-bottom: 15px; }
+.thanks-box .divider { width: 60px; height: 5px; background: var(--accent); margin: 15px auto; border-radius: 3px; }
+.thanks-box p { font-size: clamp(16px, 2vw, 22px); color: var(--text-sub); word-break: keep-all; }
+
+.slide-footer, .hub-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border-color);
+    padding-top: 15px;
+    font-size: 13px;
+    color: #94A3B8;
+    font-family: 'Montserrat', sans-serif;
+    z-index: 1;
+}
+.slide-footer .page-num { font-weight: 800; color: var(--text-sub); }
+
+/* 10. 오작동 방지 안전 규격 플로팅 홈 버튼 */
+.btn-floating-home {
+    position: fixed;
+    bottom: 40px;      /* 제스처 터치 영역 침범 방지 세이프 라인 */
+    right: 30px;       
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--text-main), var(--primary-dark));
+    color: #FFFFFF !important;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.3);
+    z-index: 9999;     
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease;
+}
+.btn-floating-home:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 15px 30px rgba(15, 23, 42, 0.4);
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+}
+.btn-floating-home i { font-size: 22px; }
+
+/* 11. 하이브리드 미디어 쿼리 브레이크포인트 */
+@media (max-width: 992px) {
+    .slide-container, .hub-container { padding: 40px 30px; }
+    .plan-grid { gap: 25px; }
+}
+@media (max-width: 768px) {
+    body { padding: 20px 10px; gap: 30px; }
+    .action-bar { flex-direction: column; align-items: stretch; padding: 20px; text-align: center; }
+    .btn-download { justify-content: center; }
+    .slide-container { min-height: auto; }
+    .grid-2, .plan-grid, .channels-container { grid-template-columns: 1fr; gap: 20px; }
+}
+@media (max-width: 480px) {
+    .btn-floating-home { bottom: 35px; right: 20px; width: 52px; height: 52px; }
+    .btn-floating-home i { font-size: 19px; }
+}
+
+/* PDF 프린트 머신 인쇄 전용 강제 치수 고정 */
+@media print {
+    body { background-color: white; padding: 0; gap: 0; }
+    .action-bar, .btn-floating-home { display: none !important; }
+    .slide-container { box-shadow: none; border-radius: 0; page-break-after: always; width: 1280px; height: 720px; min-height: 720px; padding: 50px 60px; display: flex !important; flex-direction: column !important; justify-content: space-between !important; }
+    .grid-2 { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 30px !important; }
+    .plan-grid { display: grid !important; grid-template-columns: 1fr 1fr !important; }
+    .channels-container { display: grid !important; grid-template-columns: repeat(5, 1fr) !important; }
+}
