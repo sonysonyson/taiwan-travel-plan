@@ -54,7 +54,7 @@ body {
     background: linear-gradient(135deg, var(--primary-color), #00A8CC);
 }
 
-/* 테마별 서브 헤더 배경색 */
+/* 테마별 서브 헤더 배경색 변주 */
 .sub-header.kaohsiung-theme { background: linear-gradient(135deg, #0052D4, #4364F7); }
 .sub-header.taichung-theme { background: linear-gradient(135deg, #1FA2FF, #12D8FA); color: #1A252F; }
 .sub-header.option1-theme { background: linear-gradient(135deg, #0066CC, var(--dark-color)); }
@@ -93,43 +93,33 @@ h3 {
     color: var(--dark-color);
 }
 
-/* 크리에이터 프로필 컴포넌트 */
-.creator-profile-box {
-    background: #F4F8FC;
-    border: 1px dashed var(--primary-color);
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 30px;
-}
-.creator-links a {
-    display: inline-block;
-    margin-right: 10px;
-    margin-top: 5px;
-    font-size: 12px;
-    color: var(--primary-color);
-    text-decoration: none;
-    font-weight: bold;
-}
-.creator-links a:hover { text-decoration: underline; }
-
-/* 가상 이미지 박스 스타일 */
-.image-placeholder-box {
+/* ==========================================================================
+   3. 고화질 이미지 컴포넌트
+   ========================================================================== */
+.tour-img-box {
     width: 100%;
-    height: 180px;
-    background-color: #E6EEF5;
+    height: 320px;
+    margin: 15px 0 20px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     border: 1px solid var(--border-color);
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 13px;
-    margin: 10px 0 15px 0;
-    padding: 15px;
 }
 
-/* 레이아웃 카드 및 그리드 */
+.tour-img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.tour-img-box:hover img {
+    transform: scale(1.02);
+}
+
+/* ==========================================================================
+   4. 레이아웃 카드 및 그리드
+   ========================================================================== */
 .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -190,7 +180,9 @@ h3 {
     border-radius: 0 6px 6px 0; font-size: 13px; color: #C13538;
 }
 
-/* 타임라인 및 정보 테이블 */
+/* ==========================================================================
+   5. 타임라인 테이블 스타일
+   ========================================================================== */
 .timeline-table {
     width: 100%; border-collapse: collapse;
     margin-bottom: 35px; font-size: 14px;
@@ -206,6 +198,117 @@ h3 {
 .badge-sns {
     display: inline-block; background-color: var(--secondary-color); color: #FFFFFF;
     padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; margin-right: 6px;
+}
+
+/* ==========================================================================
+   6. 1소스 멀티유즈 슬라이드/채널 융합 스타일 (신규 슬라이드 컨셉 규격 변형)
+   ========================================================================== */
+.slide-container {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: #FFFFFF;
+    margin: 40px 0 20px 0;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.slide-header {
+    background: #F4F8FB;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.slide-header h2 {
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-size: 16px;
+    color: var(--dark-color);
+}
+
+.slide-header h2 span {
+    color: var(--primary-color);
+    margin-right: 5px;
+}
+
+.slide-tag {
+    background: var(--primary-color);
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+}
+
+.slide-content {
+    padding: 25px 20px;
+}
+
+.channels-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.channel-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 10px;
+    background: #F8FAFC;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.channel-tile i {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.channel-tile span {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 2px;
+}
+
+.channel-tile p {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* 브랜드 고유 컬러 가벼운 매칭 */
+.channel-tile.instagram i { color: #E1306C; }
+.channel-tile.blog i { color: #2DB400; }
+.channel-tile.youtube i { color: #FF0000; }
+.channel-tile.tiktok i { color: #000000; }
+.channel-tile.clip i { color: #1EC800; }
+
+.channel-tile:hover {
+    transform: translateY(-2px);
+    background: #EBF3FC;
+    border-color: var(--primary-color);
+}
+
+.slide-footer {
+    background: #F8FAFC;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    border-top: 1px solid var(--border-color);
 }
 
 .floating-home {
