@@ -8,9 +8,9 @@
     --primary-hover: #004C99;
     --secondary-color: #FF5A5F;     /* SNS 포인트 라즈베리 핑크 */
     --dark-color: #1C2D42;          /* 심해 / 모험 딥 네이비 */
-    --bg-light: #F0F4F8;            /* 연한 푸른빛이 도는 쾌적한 배경 회색 */
-    --text-dark: #2C3E50;           /* 시인성 높은 다크 블루그레이 본문 */
-    --text-muted: #607D8B;          /* 미디움 블루그레이 서브 텍스트 */
+    --bg-light: #F0F4F8;            /* 연한 푸른빛이 도는 배경 */
+    --text-dark: #2C3E50;           /* 블루그레이 본문 */
+    --text-muted: #607D8B;          /* 서브 텍스트 */
     --border-color: #D1E1F0;        /* 은은한 블루 테두리 */
     --card-bg: #FFFFFF;
 }
@@ -42,12 +42,6 @@ body {
     box-shadow: 0 6px 20px rgba(0, 102, 204, 0.04);
 }
 
-/* 타이틀 및 헤더 구조 */
-h1, h2, h3, h4 {
-    font-weight: 700;
-    color: #1A252F;
-}
-
 .main-header, .sub-header {
     text-align: center;
     padding: 45px 20px;
@@ -60,14 +54,14 @@ h1, h2, h3, h4 {
     background: linear-gradient(135deg, var(--primary-color), #00A8CC);
 }
 
-/* 테마별 서브 헤더 배경색 변주 */
-.sub-header.kaohsiung-theme { background: linear-gradient(135deg, #0052D4, #4364F7, #6FB1FC); }
-.sub-header.taichung-theme { background: linear-gradient(135deg, #1FA2FF, #12D8FA, #A6FFCB); color: #1A252F; }
+/* 테마별 서브 헤더 배경색 */
+.sub-header.kaohsiung-theme { background: linear-gradient(135deg, #0052D4, #4364F7); }
+.sub-header.taichung-theme { background: linear-gradient(135deg, #1FA2FF, #12D8FA); color: #1A252F; }
 .sub-header.option1-theme { background: linear-gradient(135deg, #0066CC, var(--dark-color)); }
 .sub-header.option2-theme { background: linear-gradient(135deg, #0B4F6C, #01BAEF); }
 .sub-header.option3-theme { background: linear-gradient(135deg, #00223E, #1D976C); }
 
-.sub-header.taichung-theme p { color: #2C3E50; }
+.sub-header.taichung-theme p, .sub-header.taichung-theme .meta-info { color: #2C3E50 !important; background: rgba(0,0,0,0.05) !important; }
 
 .main-header p, .sub-header p {
     margin-top: 10px;
@@ -86,7 +80,7 @@ h1, h2, h3, h4 {
 }
 
 h2 {
-    font-size: 20px;
+    font-size: 19px;
     color: var(--primary-color);
     border-bottom: 2px solid var(--border-color);
     padding-bottom: 8px;
@@ -96,15 +90,46 @@ h2 {
 h3 {
     font-size: 16px;
     margin-bottom: 10px;
+    color: var(--dark-color);
 }
 
-/* ==========================================================================
-   3. 레이아웃 및 컴포넌트 (Cards & Grid)
-   ========================================================================== */
-.menu-section {
-    margin-bottom: 20px;
+/* 크리에이터 프로필 컴포넌트 */
+.creator-profile-box {
+    background: #F4F8FC;
+    border: 1px dashed var(--primary-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+.creator-links a {
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 5px;
+    font-size: 12px;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+.creator-links a:hover { text-decoration: underline; }
+
+/* 가상 이미지 박스 스타일 */
+.image-placeholder-box {
+    width: 100%;
+    height: 180px;
+    background-color: #E6EEF5;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
+    margin: 10px 0 15px 0;
+    padding: 15px;
 }
 
+/* 레이아웃 카드 및 그리드 */
 .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -129,164 +154,72 @@ h3 {
     box-shadow: 0 8px 16px rgba(0, 102, 204, 0.08);
 }
 
-.card.border-highlight {
-    border: 2px solid var(--secondary-color);
-}
+.card.border-highlight { border: 2px solid var(--secondary-color); }
 
-/* 카드 태그 클래스 */
 .card-tag {
-    position: absolute;
-    top: -10px;
-    left: 15px;
-    font-size: 11px;
-    font-weight: bold;
-    color: #FFFFFF;
-    padding: 3px 10px;
-    border-radius: 20px;
+    position: absolute; top: -10px; left: 15px;
+    font-size: 11px; font-weight: bold; color: #FFFFFF;
+    padding: 3px 10px; border-radius: 20px;
 }
 .tag-normal { background-color: var(--text-muted); }
 .tag-primary { background-color: var(--secondary-color); }
 .tag-secondary { background-color: #00A8CC; }
 .tag-dark { background-color: var(--dark-color); }
 
-.card h3 {
-    margin-top: 5px;
-    font-size: 17px;
-}
-
-.card p {
-    font-size: 13px;
-    color: var(--text-muted);
-    margin-bottom: 15px;
-    flex-grow: 1;
-}
-
-/* 버튼 스타일 공통 */
 .btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: var(--primary-color);
-    color: #FFFFFF;
-    text-align: center;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: bold;
-    border-radius: 4px;
-    transition: background-color 0.2s;
+    display: inline-block; padding: 10px 20px;
+    background-color: var(--primary-color); color: #FFFFFF;
+    text-align: center; text-decoration: none;
+    font-size: 13px; font-weight: bold; border-radius: 4px;
+    border: none; cursor: pointer; transition: background-color 0.2s;
 }
+.btn:hover { background-color: var(--primary-hover); }
+.btn-block { display: block; width: 100%; }
+.btn-pdf { background-color: #27AE60; margin-bottom: 20px; }
+.btn-pdf:hover { background-color: #219653; }
 
-.btn:hover {
-    background-color: var(--primary-hover);
-}
-
-.btn-block {
-    display: block;
-    width: 100%;
-}
-
-/* ==========================================================================
-   4. 상세 일정 콘텐츠 전용 스타일 (Timeline & Tables)
-   ========================================================================== */
 .summary-box {
-    background: #EBF3FC;
-    padding: 15px 20px;
-    border-radius: 6px;
-    margin-bottom: 25px;
-    font-size: 14px;
+    background: #EBF3FC; padding: 15px 20px;
+    border-radius: 6px; margin-bottom: 25px; font-size: 14px;
     border-left: 4px solid var(--primary-color);
 }
 
 .alert-box {
-    background-color: #FFF5F5;
-    border-left: 4px solid var(--secondary-color);
-    padding: 15px 20px;
-    margin-bottom: 25px;
-    border-radius: 0 6px 6px 0;
-    font-size: 13px;
-    color: #C13538;
+    background-color: #FFF5F5; border-left: 4px solid var(--secondary-color);
+    padding: 15px 20px; margin-bottom: 25px;
+    border-radius: 0 6px 6px 0; font-size: 13px; color: #C13538;
 }
 
+/* 타임라인 및 정보 테이블 */
 .timeline-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 35px;
-    font-size: 14px;
+    width: 100%; border-collapse: collapse;
+    margin-bottom: 35px; font-size: 14px;
 }
-
 .timeline-table th, .timeline-table td {
-    border: 1px solid var(--border-color);
-    padding: 12px;
-    text-align: left;
-    vertical-align: middle;
+    border: 1px solid var(--border-color); padding: 12px;
+    text-align: left; vertical-align: middle;
 }
+.timeline-table th { background-color: #F4F8FB; font-weight: 600; color: #2C3E50; }
+.date-cell { background-color: #F9FBFC; font-weight: bold; text-align: center !important; color: #1A252F; }
+.time-cell { font-weight: bold; color: var(--primary-color); white-space: nowrap; }
 
-.timeline-table th {
-    background-color: #F4F8FB;
-    font-weight: 600;
-    color: #2C3E50;
-}
-
-.date-cell {
-    background-color: #F9FBFC;
-    font-weight: bold;
-    text-align: center !important;
-    color: #1A252F;
-}
-
-.time-cell {
-    font-weight: bold;
-    color: var(--primary-color);
-    white-space: nowrap;
-}
-
-/* SNS 포인트 배지 */
 .badge-sns {
-    display: inline-block;
-    background-color: var(--secondary-color);
-    color: #FFFFFF;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: bold;
-    margin-right: 6px;
+    display: inline-block; background-color: var(--secondary-color); color: #FFFFFF;
+    padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; margin-right: 6px;
 }
 
-/* ==========================================================================
-   5. 유틸리티 인터페이스 (Floating UI & Responsive & Print)
-   ========================================================================== */
 .floating-home {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    background-color: var(--primary-color);
-    color: #FFFFFF;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 50px;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 4px 14px rgba(0, 102, 204, 0.3);
-    transition: transform 0.2s, background-color 0.2s;
+    position: fixed; bottom: 25px; right: 25px;
+    background-color: var(--primary-color); color: #FFFFFF;
+    width: 50px; height: 50px; border-radius: 50%;
+    text-align: center; line-height: 50px; text-decoration: none;
+    font-weight: bold; box-shadow: 0 4px 14px rgba(0, 102, 204, 0.3);
     z-index: 1000;
-}
-
-.floating-home:hover {
-    transform: scale(1.1);
-    background-color: var(--primary-hover);
-}
-
-@media (max-width: 768px) {
-    .container { margin: 10px; padding: 15px; }
-    .timeline-table { font-size: 13px; }
-    .timeline-table th, .timeline-table td { padding: 8px; }
-    .floating-home { bottom: 15px; right: 15px; width: 44px; height: 44px; line-height: 44px; font-size: 12px; }
 }
 
 @media print {
     body { background: #FFFFFF; }
     .container { box-shadow: none; padding: 0; margin: 0; max-width: 100%; }
     .page-break { page-break-before: always; }
-    .floating-home, .btn { display: none !important; }
+    .floating-home, .btn, .btn-pdf { display: none !important; }
 }
