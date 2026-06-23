@@ -326,3 +326,43 @@ h3 {
     .page-break { page-break-before: always; }
     .floating-home, .btn, .btn-pdf { display: none !important; }
 }
+
+/* ==========================================================================
+   8. 관광지 스폿 전용 라벨 디자인 시스템 (신규 추가)
+   ========================================================================== */
+.spot-label-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 35px 0 15px 0;
+    padding-bottom: 5px;
+}
+
+.spot-tag-badge {
+    background: linear-gradient(135deg, var(--primary-color), #00A8CC);
+    color: #FFFFFF;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 6px rgba(0, 102, 204, 0.2);
+    flex-shrink: 0;
+}
+
+.spot-label-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--dark-color);
+    margin: 0;
+}
+
+/* 인쇄 시 라벨 배경색 유지 및 가독성 확보 */
+@media print {
+    .spot-tag-badge {
+        background: #0066CC !important;
+        color: #FFFFFF !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
